@@ -61,24 +61,22 @@ const deleteFlashcard = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const flashcard = await Flashcard.findById(id);
+    // Use findOneAndDelete to ensure the flashcard belongs to the logged-in user
+    const flashcard = await Flashcard.findOneAndDelete({ _id: id, user: req.user._id });
 
     if (!flashcard) {
-      return res.status(404).json({ message: 'Flashcard not found' });
+      return res.status(404).json({ message: 'Flashcard not found or not authorized' });
     }
 
-    if (flashcard.user.toString() !== req.user._id.toString()) {
-      return res.status(401).json({ message: 'Not authorized' });
-    }
-
-    await flashcard.remove();
-    console.log('Flashcard deleted:', flashcard); // Debug log
+    console.log('Deleted flashcard:', flashcard); // Debug log
     res.status(200).json({ message: 'Flashcard removed' });
   } catch (error) {
     console.error('Error deleting flashcard:', error);
     res.status(500).json({ message: `Error deleting flashcard: ${error.message}` });
   }
 };
+
+
 
 module.exports = {
   createFlashcard,
