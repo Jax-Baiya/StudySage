@@ -1,6 +1,6 @@
 // ===== server.js =====
-const express = require('express');
 const dotenv = require('dotenv');
+const express = require('express');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const flashcardRoutes = require('./routes/flashcards');
@@ -9,6 +9,7 @@ const aiRoutes = require('./routes/ai'); // Add this line to import AI routes
 
 // Load environment variables
 dotenv.config();
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY); // Debug log to confirm key is loaded
 
 // Connect to the database
 connectDB();
