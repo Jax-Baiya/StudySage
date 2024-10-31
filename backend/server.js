@@ -27,3 +27,12 @@ app.use('/api/ai', aiRoutes); // Add this line to use the AI routes
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+const cors = require('cors');
+
+// CORS Middleware to allow requests from the frontend
+app.use(cors({
+  origin: 'http://localhost:3000', // Change this to the URL of your frontend app
+  credentials: true,
+}));
