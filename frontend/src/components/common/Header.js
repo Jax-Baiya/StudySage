@@ -1,40 +1,49 @@
 // File: src/components/common/Header.js
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import React, { useContext } from 'react';
+import { AppBar, Toolbar, Typography, Button, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
-import DarkModeToggle from '../../pages/DarkModeToggle';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
-// Define styles for the header component
 const useStyles = makeStyles({
   headerTitle: {
-    flexGrow: 1, // Ensure the title takes up available space
+    flexGrow: 1,
   },
   toggleButton: {
-    marginRight: 'auto', // Align the toggle button to the left
+    marginRight: 'auto',
   },
 });
 
-function Header({ toggleDarkMode, isDarkMode }) {
+function Header() {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { currentTheme, toggleTheme } = useContext(ThemeContext);
 
   console.log('Header component rendered');
 
   return (
     <AppBar position="static">
       <Toolbar>
-        {/* Dark mode toggle button on the left */}
-        <div className={classes.toggleButton}>
-          <DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
-        </div>
-        {/* Application title */}
         <Typography variant="h6" className={classes.headerTitle}>StudySage</Typography>
-        {/* Navigation buttons */}
         <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
         <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>
         <Button color="inherit" onClick={() => navigate('/register')}>Register</Button>
         <Button color="inherit" onClick={() => navigate('/dashboard')}>Dashboard</Button>
+        <div className={classes.toggleButton}>
+          <Select
+            value={currentTheme}
+            onChange={(e) => toggleTheme(e.target.value)}
+            variant="outlined"
+            style={{ color: 'white', backgroundColor: 'inherit' }}
+          >
+            <MenuItem value="light">Light</MenuItem>
+            <MenuItem value="dark">Dark</MenuItem>
+            <MenuItem value="latte">Latte</MenuItem>
+            <MenuItem value="frappe">Frappe</MenuItem>
+            <MenuItem value="macchiato">Macchiato</MenuItem>
+            <MenuItem value="mocha">Mocha</MenuItem>
+          </Select>
+        </div>
       </Toolbar>
     </AppBar>
   );

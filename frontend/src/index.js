@@ -1,35 +1,23 @@
 // File: frontend/src/index.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { lightTheme, darkTheme } from './themes/theme';
+import { CssBaseline } from '@mui/material';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeContextProvider } from './contexts/ThemeContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 console.log('Rendering root component');
 
 function Root() {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return JSON.parse(localStorage.getItem('isDarkMode')) || false;
-  });
-
-  useEffect(() => {
-    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
-
   return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+    <ThemeContextProvider>
       <CssBaseline />
       <Router>
-        <App toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+        <App />
       </Router>
-    </ThemeProvider>
+    </ThemeContextProvider>
   );
 }
 
