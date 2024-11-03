@@ -23,14 +23,10 @@ function Header() {
         {/* Application title */}
         <Typography variant="h6" className={classes.headerTitle}>StudySage</Typography>
         {/* Navigation buttons */}
-        <Button color="inherit" onClick={() => {
-          console.log('Navigating to home page');
-          navigate('/');
-        }}>Home</Button>
-        <Button color="inherit" onClick={() => {
-          console.log('Navigating to login page');
-          navigate('/login');
-        }}>Login</Button>
+        <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
+        <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>
+        <Button color="inherit" onClick={() => navigate('/register')}>Register</Button>
+        <Button color="inherit" onClick={() => navigate('/dashboard')}>Dashboard</Button>
       </Toolbar>
     </AppBar>
   );

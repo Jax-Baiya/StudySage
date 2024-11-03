@@ -4,24 +4,24 @@ import { CircularProgress } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Header from './components/common/Header';
 
-// Lazy load the Dashboard component for better performance
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+const FlashcardDetail = lazy(() => import('./pages/FlashcardDetail'));
 
 function App() {
   console.log('App component rendered');
   return (
     <>
-      {/* Render the header component */}
       <Header />
-      {/* Use Suspense to show a fallback while loading the Dashboard component */}
-      <Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><CircularProgress /></div>}>
+      <Suspense fallback={<CircularProgress />}>
         <Routes>
-          {/* Define application routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/flashcard/:id" element={<FlashcardDetail />} />
         </Routes>
       </Suspense>
     </>

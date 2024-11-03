@@ -1,41 +1,46 @@
 // File: src/pages/Dashboard.js
 import React, { useEffect, useState } from 'react';
-import { Container, Typography } from '@mui/material';
-import useAuth from '../hooks/useAuth';
-import { getFlashcards } from '../utils/api';
+import { Container, Typography, CircularProgress } from '@mui/material';
 import Flashcard from '../components/flashcards/Flashcard';
+import { getFlashcards } from '../utils/api';
 
 function Dashboard() {
-  useAuth(); // Ensure the user is authenticated before rendering the component
-  const [flashcards, setFlashcards] = useState([]); // State to store flashcards data
-  const [flashcardsError, setFlashcardsError] = useState(''); // State to store error messages
+  const [flashcards, setFlashcards] = useState([]); // State to store flashcards
+  const [loading, setLoading] = useState(true); // State to handle loading indicator
+  const [error, setError] = useState(''); // State to store any errors
 
   useEffect(() => {
-    // Function to fetch flashcards data
-    const fetchData = async () => {
-      console.log('Fetching flashcards');
+    // Fetch flashcards when the component mounts
+    const fetchFlashcards = async () => {
       try {
+        console.log('Fetching flashcards');
         const response = await getFlashcards();
-        console.log('Flashcards fetched successfully');
-        setFlashcards(response.data); // Update state with fetched flashcards
+        console.log('Flashcards fetched successfully:', response.data);
+        setFlashcards(response.data);
       } catch (error) {
         console.error('Error fetching flashcards:', error);
-        setFlashcardsError('Error fetching flashcards. Please try again later.');
+        setError('Failed to fetch flashcards. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
-    fetchData();
+
+    fetchFlashcards();
   }, []);
 
   return (
     <Container>
       <Typography variant="h3">Dashboard</Typography>
       <Typography variant="body1">Welcome to your personalized dashboard!</Typography>
-      {/* Display error message if any */}
-      {flashcardsError && <Typography color="error">{flashcardsError}</Typography>}
-      {/* Render flashcards */}
-      {flashcards.map((card) => (
-        <Flashcard key={card.id} question={card.question} answer={card.answer} />
-      ))}
+      {loading ? (
+        <CircularProgress />
+      ) : error ? (
+        <Typography color="error">{error}</Typography>
+      ) : (
+        flashcards.map((card) => (
+          <Flashcard key={card._id} id={card._id} question={card.title} answer={card.content} />
+        ))
+      )}
     </Container>
   );
 }
