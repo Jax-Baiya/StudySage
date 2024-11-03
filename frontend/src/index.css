@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* File: frontend/src/index.css or App.css */
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212; /* Dark background */
+  color: #ffffff;            /* Light text color */
+}
+
+/* Adjust specific components if needed */
+.dark-mode button {
+  background-color: #333;
+  color: #fff;
+}

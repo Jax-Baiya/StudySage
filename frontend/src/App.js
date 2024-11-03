@@ -1,5 +1,5 @@
 // File: src/App.js
-import React, { Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react'; 
 import { CircularProgress } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
@@ -17,10 +17,28 @@ const GenerateFlashcard = lazy(() => import('./pages/GenerateFlashcard'));
 
 function App() {
   console.log('App component rendered');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Load dark mode setting from local storage if available
+    const savedMode = localStorage.getItem('darkMode') === 'true';
+    setIsDarkMode(savedMode);
+    document.body.classList.toggle('dark-mode', savedMode);
+  }, []);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem('darkMode', newMode); // Save the preference
+      document.body.classList.toggle('dark-mode', newMode);
+      return newMode;
+    });
+  };
+
   return (
     <>
-      {/* Header is always rendered */}
-      <Header />
+      {/* Header is always rendered with dark mode toggle */}
+      <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       {/* Suspense component to handle lazy loading fallback */}
       <Suspense fallback={<CircularProgress />}>
         <Routes>

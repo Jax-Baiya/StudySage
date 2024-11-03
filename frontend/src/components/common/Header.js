@@ -3,15 +3,19 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
+import DarkModeToggle from '../../pages/DarkModeToggle';
 
 // Define styles for the header component
 const useStyles = makeStyles({
   headerTitle: {
     flexGrow: 1, // Ensure the title takes up available space
   },
+  toggleButton: {
+    marginRight: 'auto', // Align the toggle button to the left
+  },
 });
 
-function Header() {
+function Header({ toggleDarkMode, isDarkMode }) {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -20,6 +24,10 @@ function Header() {
   return (
     <AppBar position="static">
       <Toolbar>
+        {/* Dark mode toggle button on the left */}
+        <div className={classes.toggleButton}>
+          <DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+        </div>
         {/* Application title */}
         <Typography variant="h6" className={classes.headerTitle}>StudySage</Typography>
         {/* Navigation buttons */}

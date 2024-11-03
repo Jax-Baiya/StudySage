@@ -1,23 +1,36 @@
-// File: src/index.js
-import React from 'react';
+// File: frontend/src/index.js
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from './themes/theme';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { lightTheme, darkTheme } from './themes/theme';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-// Get the root container element from the DOM
 const container = document.getElementById('root');
-// Create a root for React 18 concurrent rendering
 const root = createRoot(container);
 console.log('Rendering root component');
-// Render the app inside the root
-root.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Router>
-      <App />
-    </Router>
-  </ThemeProvider>
-);
+
+function Root() {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return JSON.parse(localStorage.getItem('isDarkMode')) || false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
+  return (
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <Router>
+        <App toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+      </Router>
+    </ThemeProvider>
+  );
+}
+
+root.render(<Root />);

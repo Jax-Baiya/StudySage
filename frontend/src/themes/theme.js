@@ -1,21 +1,34 @@
-// File: src/themes/theme.js
+// File: frontend/src/themes/theme.js
 import { createTheme } from '@mui/material/styles';
 
-// Define a custom theme for Material-UI components
-const theme = createTheme({
+export const lightTheme = createTheme({
   palette: {
+    mode: 'light',
     primary: {
-      main: '#1976d2', // Primary color
+      main: '#3f51b5',
     },
     secondary: {
-      main: '#dc004e', // Secondary color
+      main: '#f50057',
     },
-  },
-  typography: {
-    fontFamily: 'Roboto, Arial, sans-serif', // Define default font family
+    background: {
+      default: '#ffffff',
+      paper: '#f4f6f8',
+    },
   },
 });
 
-console.log('Theme created');
-
-export default theme;
+export const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+  },
+});
