@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, CircularProgress } from '@mui/material';
-import { getFlashcards } from '../utils/api';
+import { getFlashcardById, updateFlashcard } from '../utils/api';
 
 function FlashcardEdit() {
   const { id } = useParams();
@@ -17,15 +17,14 @@ function FlashcardEdit() {
     const fetchFlashcard = async () => {
       try {
         console.log(`Fetching flashcard with id: ${id}`);
-        const response = await getFlashcards();
-        const card = response.data.find((item) => item._id === id);
-        if (card) {
-          setFlashcard(card);
-          setTitle(card.title);
-          setContent(card.content);
-          console.log('Flashcard fetched successfully:', card);
+        const response = await getFlashcardById(id);
+        if (response.data) {
+          setFlashcard(response.data);
+          setTitle(response.data.title);
+          setContent(response.data.content);
+          console.log('Flashcard fetched successfully:', response.data);
         } else {
-          console.error('Flashcard not found');
+          setFlashcard(null);
         }
       } catch (error) {
         console.error('Error fetching flashcard:', error);
@@ -37,10 +36,14 @@ function FlashcardEdit() {
     fetchFlashcard();
   }, [id]);
 
-  const handleSave = () => {
-    console.log(`Saving flashcard with id: ${id}`, { title, content });
-    // Here, add the logic to save/update the flashcard
-    navigate('/dashboard');
+  const handleSave = async () => {
+    try {
+      console.log(`Saving flashcard with id: ${id}`, { title, content });
+      await updateFlashcard(id, { title, content });
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error saving flashcard:', error);
+    }
   };
 
   return (

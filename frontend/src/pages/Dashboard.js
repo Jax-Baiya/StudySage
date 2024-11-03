@@ -28,15 +28,23 @@ function Dashboard() {
     };
 
     fetchFlashcards();
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once
 
   return (
     <Container>
       <Typography variant="h3">Dashboard</Typography>
       <Typography variant="body1">Welcome to your personalized dashboard!</Typography>
+      {/* Buttons for navigating to create flashcard, generate flashcard, and settings pages */}
       <Button variant="contained" color="primary" onClick={() => navigate('/flashcard/create')}>
         Add New Flashcard
       </Button>
+      <Button variant="contained" color="secondary" onClick={() => navigate('/generate-flashcard')} style={{ marginLeft: '1rem' }}>
+        Generate Flashcard via AI
+      </Button>
+      <Button variant="contained" color="default" onClick={() => navigate('/settings')} style={{ marginLeft: '1rem' }}>
+        Settings
+      </Button>
+      {/* Show loading indicator, error message, or flashcards list */}
       {loading ? (
         <CircularProgress />
       ) : error ? (
