@@ -1,6 +1,6 @@
 // File: src/pages/Register.js
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Snackbar, IconButton, Tooltip } from '@mui/material';
+import { Container, TextField, Button, Typography, Snackbar, IconButton, Tooltip, Box, Grid, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { register } from '../utils/api';
@@ -54,68 +54,74 @@ function Register() {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Register</Typography>
-      {/* Username input field */}
-      <TextField
-        label="Username"
-        value={username}
-        onChange={(e) => {
-          console.log('Username input changed:', e.target.value);
-          setUsername(e.target.value);
-        }}
-        fullWidth
-        margin="normal"
-      />
-      {/* Email input field */}
-      <TextField
-        label="Email"
-        value={email}
-        onChange={(e) => {
-          console.log('Email input changed:', e.target.value);
-          setEmail(e.target.value);
-        }}
-        fullWidth
-        margin="normal"
-      />
-      {/* Password input field */}
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => {
-          console.log('Password input changed');
-          setPassword(e.target.value);
-        }}
-        fullWidth
-        margin="normal"
-      />
-      {/* Register button */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleRegister}
-      >
-        Register
-      </Button>
-      {/* Display auth token with copy button if available */}
-      {authToken && (
-        <div style={{ marginTop: '1rem' }}>
-          <Typography id="auth-token" variant="body1">
-            Auth Token: {authToken}
-          </Typography>
-          <Tooltip title="Copy Auth Token">
-            <IconButton
-              onClick={() => {
-                navigator.clipboard.writeText(authToken);
-                console.log('Auth token copied to clipboard');
-              }}
-            >
-              <ContentCopyIcon />
-            </IconButton>
-          </Tooltip>
-        </div>
-      )}
+    <Container component="main" maxWidth="xs">
+      <Paper elevation={3} style={{ padding: '2rem', marginTop: '2rem' }}>
+        <Typography variant="h4" gutterBottom align="center">
+          Sign Up
+        </Typography>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
+          {/* Username input field */}
+          <TextField
+            label="Username"
+            value={username}
+            onChange={(e) => {
+              console.log('Username input changed:', e.target.value);
+              setUsername(e.target.value);
+            }}
+            fullWidth
+            margin="normal"
+          />
+          {/* Email input field */}
+          <TextField
+            label="Email"
+            value={email}
+            onChange={(e) => {
+              console.log('Email input changed:', e.target.value);
+              setEmail(e.target.value);
+            }}
+            fullWidth
+            margin="normal"
+          />
+          {/* Password input field */}
+          <TextField
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              console.log('Password input changed');
+              setPassword(e.target.value);
+            }}
+            fullWidth
+            margin="normal"
+          />
+          {/* Register button */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleRegister}
+          >
+            Register
+          </Button>
+          {/* Display auth token with copy button if available */}
+          {authToken && (
+            <div style={{ marginTop: '1rem' }}>
+              <Typography id="auth-token" variant="body1">
+                Auth Token: {authToken}
+              </Typography>
+              <Tooltip title="Copy Auth Token">
+                <IconButton
+                  onClick={() => {
+                    navigator.clipboard.writeText(authToken);
+                    console.log('Auth token copied to clipboard');
+                  }}
+                >
+                  <ContentCopyIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
+          </Box>
+      </Paper>
       {/* Snackbar to show error messages */}
       <Snackbar
         open={open}

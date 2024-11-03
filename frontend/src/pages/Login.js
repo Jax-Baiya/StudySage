@@ -1,6 +1,6 @@
 // File: src/pages/Login.js
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Snackbar } from '@mui/material';
+import { Container, TextField, Button, Typography, Snackbar, Box, Grid, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../utils/api';
 
@@ -34,39 +34,47 @@ function Login() {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Login</Typography>
-      {/* Email input field */}
-      <TextField
-        label="Email"
-        value={email}
-        onChange={(e) => {
-          console.log('Email input changed:', e.target.value);
-          setEmail(e.target.value);
-        }}
-        fullWidth
-        margin="normal"
-      />
-      {/* Password input field */}
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => {
-          console.log('Password input changed');
-          setPassword(e.target.value);
-        }}
-        fullWidth
-        margin="normal"
-      />
-      {/* Login button */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleLogin}
-      >
-        Login
-      </Button>
+    <Container component="main" maxWidth="xs">
+      <Paper elevation={3} style={{ padding: '2rem', marginTop: '2rem' }}>
+        <Typography variant="h4" gutterBottom align="center">
+          Sign In
+        </Typography>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
+          {/* Email input field */}
+          <TextField
+            label="Email"
+            value={email}
+            onChange={(e) => {
+              console.log('Email input changed:', e.target.value);
+              setEmail(e.target.value);
+            }}
+            fullWidth
+            margin="normal"
+          />
+          {/* Password input field */}
+          <TextField
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              console.log('Password input changed');
+              setPassword(e.target.value);
+            }}
+            fullWidth
+            margin="normal"
+          />
+          {/* Login button */}
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Login
+          </Button>
+        </Box>
+      </Paper>
       {/* Snackbar to show error messages */}
       <Snackbar
         open={open}

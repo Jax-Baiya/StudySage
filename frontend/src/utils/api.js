@@ -18,21 +18,40 @@ api.interceptors.request.use((config) => {
 });
 
 // Function to call the login API endpoint
-export const login = (credentials) => {
-  console.log('API call to /auth/login with credentials:', credentials);
-  return api.post('/auth/login', credentials);
+export const login = async (credentials) => {
+  try {
+    console.log('API call to /auth/login with credentials:', credentials);
+    const response = await api.post('/auth/login', credentials);
+    console.log('Login response:', response);
+    return response;
+  } catch (error) {
+    console.error('Error during login:', error.response?.data || error.message);
+    throw error; // Ensure the error is propagated for proper handling
+  }
 };
 
 // Function to call the register API endpoint
-export const register = (credentials) => {
-  console.log('API call to /auth/register with credentials:', credentials);
-  return api.post('/auth/register', credentials);
+export const register = async (credentials) => {
+  try {
+    console.log('API call to /auth/register with credentials:', credentials);
+    const response = await api.post('/auth/register', credentials);
+    console.log('Register response:', response);
+    return response;
+  } catch (error) {
+    console.error('Error during registration:', error.response?.data || error.message);
+    throw error; // Ensure the error is propagated for proper handling
+  }
 };
 
 // Function to call the flashcards API endpoint to get all flashcards
-export const getFlashcards = () => {
-  console.log('API call to /flashcards');
-  return api.get('/flashcards');
+export const getFlashcards = async () => {
+  try {
+    const response = await api.get('/flashcards');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch flashcards:', error);
+    throw new Error('Failed to fetch flashcards. Please check your connection or log in again.');
+  }
 };
 
 // Function to get a specific flashcard by ID
@@ -63,6 +82,20 @@ export const deleteFlashcard = (id) => {
 export const generateFlashcard = (prompt) => {
   console.log('API call to generate flashcard:', prompt);
   return api.post('/ai/generate', prompt);
+};
+
+// Add a logout API call
+export const logout = async () => {
+    console.log('API call to /auth/logout');
+    try {
+      const response = await api.post('/auth/logout');
+      if (response.status === 200) {
+        localStorage.removeItem('token'); // Remove the token from local storage
+        console.log('Logout successful'); // Redirect to login page
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
 };
 
 export default api;

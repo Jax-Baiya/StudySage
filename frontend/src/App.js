@@ -1,10 +1,8 @@
-// File: frontend/src/App.js
+// File: src/App.js
 import React, { Suspense, lazy } from 'react';
 import { CircularProgress } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import Header from './components/common/Header';
 
 // Lazy load components for code splitting and performance optimization
@@ -14,10 +12,10 @@ const FlashcardEdit = lazy(() => import('./pages/FlashcardEdit'));
 const FlashcardCreate = lazy(() => import('./pages/FlashcardCreate'));
 const Settings = lazy(() => import('./pages/Settings'));
 const GenerateFlashcard = lazy(() => import('./pages/GenerateFlashcard'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
 
-function App() {
-  console.log('App component rendered');
-
+function App({ toggleTheme }) {
   return (
     <>
       <Header />

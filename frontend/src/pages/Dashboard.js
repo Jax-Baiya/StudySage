@@ -6,45 +6,39 @@ import { getFlashcards } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
-  const [flashcards, setFlashcards] = useState([]); // State to store flashcards
-  const [loading, setLoading] = useState(true); // State to handle loading indicator
-  const [error, setError] = useState(''); // State to store any errors
+  const [flashcards, setFlashcards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch flashcards when the component mounts
     const fetchFlashcards = async () => {
       try {
-        console.log('Fetching flashcards');
+        console.log('Fetching flashcards...');  // Debug log
         const response = await getFlashcards();
-        console.log('Flashcards fetched successfully:', response.data);
-        setFlashcards(response.data);
+        console.log('Flashcards fetched successfully:', response);
+        setFlashcards(response);
       } catch (error) {
         console.error('Error fetching flashcards:', error);
-        setError('Failed to fetch flashcards. Please try again later.');
+        setError(error.message || 'Failed to fetch flashcards. Please check your connection or log in again.');
       } finally {
         setLoading(false);
       }
     };
 
     fetchFlashcards();
-  }, []); // Empty dependency array ensures this effect runs only once
+  }, []);
 
   return (
     <Container>
       <Typography variant="h3">Dashboard</Typography>
-      <Typography variant="body1">Welcome to your personalized dashboard!</Typography>
-      {/* Buttons for navigating to create flashcard, generate flashcard, and settings pages */}
+      <Typography variant="body2">Welcome to your personalized dashboard!</Typography>
       <Button variant="contained" color="primary" onClick={() => navigate('/flashcard/create')}>
         Add New Flashcard
       </Button>
       <Button variant="contained" color="secondary" onClick={() => navigate('/generate-flashcard')} style={{ marginLeft: '1rem' }}>
-        Generate Flashcard via AI
+        AI Generate Flashcard
       </Button>
-      <Button variant="contained" color="default" onClick={() => navigate('/settings')} style={{ marginLeft: '1rem' }}>
-        Settings
-      </Button>
-      {/* Show loading indicator, error message, or flashcards list */}
       {loading ? (
         <CircularProgress />
       ) : error ? (
