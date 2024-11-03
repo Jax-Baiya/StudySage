@@ -80,4 +80,3 @@ StudySage provides a range of features designed to help users effectively manage
 ### Acknowledgments
 
 - Special thanks to OpenAI for providing AI content generation capabilities.
-

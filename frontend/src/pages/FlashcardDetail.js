@@ -1,11 +1,12 @@
 // File: src/pages/FlashcardDetail.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Typography, CircularProgress } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Typography, CircularProgress, Button } from '@mui/material';
 import { getFlashcards } from '../utils/api';
 
 function FlashcardDetail() {
   const { id } = useParams(); // Get flashcard ID from URL
+  const navigate = useNavigate();
   const [flashcard, setFlashcard] = useState(null); // State to store the flashcard details
   const [loading, setLoading] = useState(true); // State to handle loading indicator
   const [error, setError] = useState(''); // State to store any errors
@@ -45,6 +46,12 @@ function FlashcardDetail() {
           <>
             <Typography variant="h4">{flashcard.title}</Typography>
             <Typography variant="body1">{flashcard.content}</Typography>
+            <Button variant="contained" color="primary" onClick={() => navigate(`/flashcard/edit/${id}`)}>
+              Edit Flashcard
+            </Button>
+            <Button variant="contained" onClick={() => navigate('/dashboard')} style={{ marginLeft: '1rem' }}>
+              Back to Dashboard
+            </Button>
           </>
         )
       )}

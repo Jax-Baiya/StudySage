@@ -9,6 +9,7 @@ import Header from './components/common/Header';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const FlashcardDetail = lazy(() => import('./pages/FlashcardDetail'));
+const FlashcardEdit = lazy(() => import('./pages/FlashcardEdit'));
 
 function App() {
   console.log('App component rendered');
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/flashcard/:id" element={<FlashcardDetail />} />
+          <Route path="/flashcard/edit/:id" element={<FlashcardEdit />} />
         </Routes>
       </Suspense>
     </>
