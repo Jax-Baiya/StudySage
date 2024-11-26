@@ -21,7 +21,6 @@ function Footer() {
   return (
     <footer
       style={{
-        position: 'fixed',
         bottom: 0,
         width: '100%',
         zIndex: 1000,
