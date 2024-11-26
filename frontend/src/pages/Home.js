@@ -1,21 +1,28 @@
 // File: src/pages/Home.js
 import React from 'react';
-import { Container, Typography, Button, Grid } from '@mui/material';
+import { Container, Typography, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+// Removed unused 'ThemeContext' import
 
 function Home() {
+  // Removed unused 'currentTheme' variable
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth="md" style={{ marginTop: '2rem', textAlign: 'center' }}>
-      <Typography variant="h3" gutterBottom>
-        Welcome to StudySage
-      </Typography>
-      <Typography variant="h7" paragraph>
-        Your ultimate study companion that helps you create, manage, and enhance your learning experience with custom flashcards, AI-generated content, and more.
-      </Typography>
-      <Grid container spacing={3} justifyContent="center" style={{ marginTop: '2rem' }}>
-        <Grid item>
+    <div>
+      <Container maxWidth="md" style={{ marginTop: '2rem', textAlign: 'center', minHeight: '80vh' }}>
+        <Typography variant="h3" gutterBottom>
+          Welcome to StudySage
+        </Typography>
+        <Typography variant="h7" prop>
+          Your ultimate study companion that helps you create, manage, and enhance your learning experience with custom flashcards, AI-generated content, and more.
+        </Typography>
+        <Box
+          display="flex"
+          justifyContent="center"
+          gap={3}
+          marginTop="2rem"
+        >
           <Button
             variant="contained"
             color="primary"
@@ -23,8 +30,6 @@ function Home() {
           >
             Get Started
           </Button>
-        </Grid>
-        <Grid item>
           <Button
             variant="outlined"
             color="secondary"
@@ -32,9 +37,9 @@ function Home() {
           >
             Log In
           </Button>
-        </Grid>
-      </Grid>
-    </Container>
+        </Box>
+      </Container>
+    </div>
   );
 }
 

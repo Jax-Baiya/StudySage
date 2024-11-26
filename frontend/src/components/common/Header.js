@@ -2,10 +2,12 @@
 import React, { useState, useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Select } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { logout } from '../../utils/api';
+import { ReactComponent as LogoLightSvg } from '../../assets/logos/StudySage_light_bg.svg';
+import { ReactComponent as LogoDarkSvg } from '../../assets/logos/StudySage_dark_bg.svg';
 
 const useStyles = makeStyles({
   headerTitle: {
@@ -20,6 +22,7 @@ function Header() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { currentTheme, toggleTheme } = useContext(ThemeContext);
+  const isDarkTheme = ['dark', 'mocha', 'macchiato', 'frappe'].includes(currentTheme);
   const token = localStorage.getItem('token');
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -42,8 +45,25 @@ function Header() {
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar>
+    <AppBar
+      position="fixed"
+      style={{
+        position: 'fixed',
+        top: 0,
+        width: '100%',
+        zIndex: 1000,
+        padding: '8px 0', // Changed from '0.5rem 0' to '8px 0'
+      }}
+    >
+      <Toolbar style={{ minHeight: '56px' }}> {/* Adjusted minHeight */}
+        <Link to="/">
+          {isDarkTheme ? (
+            <LogoLightSvg style={{ width: '40px', height: '40px' }} /> // Reduced logo size
+          ) : (
+            <LogoDarkSvg style={{ width: '40px', height: '40px' }} /> // Reduced logo size
+          )}
+        </Link>
+
         <Typography variant="h6" className={classes.headerTitle}>
           StudySage
         </Typography>

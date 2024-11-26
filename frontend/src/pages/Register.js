@@ -1,6 +1,6 @@
 // File: src/pages/Register.js
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Snackbar, IconButton, Tooltip, Box, Grid, Paper } from '@mui/material';
+import { Container, TextField, Button, Typography, Snackbar, IconButton, Tooltip, Box, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { register } from '../utils/api';
