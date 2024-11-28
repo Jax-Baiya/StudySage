@@ -1,24 +1,21 @@
-// File: frontend/src/index.js
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
+import ReactDOM from 'react-dom'; // Updated import
+import App from './App.jsx'; // Ensured '.jsx' extension
 import { CssBaseline } from '@mui/material';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeContextProvider } from './contexts/ThemeContext';
+import './index.css';
 
 const container = document.getElementById('root');
-const root = createRoot(container);
-console.log('Rendering root component');
 
-function Root() {
-  return (
+ReactDOM.render(
+  <React.StrictMode>
     <ThemeContextProvider>
       <CssBaseline />
       <Router>
         <App />
       </Router>
     </ThemeContextProvider>
-  );
-}
-
-root.render(<Root />);
+  </React.StrictMode>,
+  container
+);

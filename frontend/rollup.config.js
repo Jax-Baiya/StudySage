@@ -1,0 +1,9 @@
+
+import { terser } from '@rollup/plugin-terser'; // Add this line
+
+// ...existing code...
+plugins: [
+  // ...existing plugins...
+  terser(),
+  // ...other plugins...
+]

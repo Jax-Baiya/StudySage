@@ -1,7 +1,7 @@
 // File: src/pages/Login.js
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Snackbar, Box, Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../utils/api';
 
 function Login() {
@@ -73,6 +73,14 @@ function Login() {
           >
             Login
           </Button>
+        </Box>
+        <Box mt={2} textAlign="center">
+          <Typography variant="body2">
+            Don't have an account?{' '}
+            <Link to="/register" style={{ textDecoration: 'none', color: '#3f51b5' }}>
+              Sign Up
+            </Link>
+          </Typography>
         </Box>
       </Paper>
       {/* Snackbar to show error messages */}

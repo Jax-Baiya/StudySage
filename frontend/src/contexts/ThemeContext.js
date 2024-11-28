@@ -1,44 +1,37 @@
 // File: frontend/src/contexts/ThemeContext.js
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import {
-  lightTheme,
-  darkTheme,
-  latteTheme,
-  frappeTheme,
-  macchiatoTheme,
-  mochaTheme,
-} from '../themes/theme';
+import { latteTheme, frappeTheme, macchiatoTheme, mochaTheme } from '../themes/theme';
 
 export const ThemeContext = createContext();
 
-const themes = {
-  light: lightTheme,
-  dark: darkTheme,
-  latte: latteTheme,
-  frappe: frappeTheme,
-  macchiato: macchiatoTheme,
-  mocha: mochaTheme,
-};
+export function ThemeContextProvider({ children }) {
+  const [themeName, setThemeName] = useState('latte');
 
-export const ThemeContextProvider = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState('dark');
+  const theme = useMemo(() => {
+    switch (themeName) {
+      case 'latte':
+        return latteTheme;
+      case 'frappe':
+        return frappeTheme;
+      case 'macchiato':
+        return macchiatoTheme;
+      case 'mocha':
+        return mochaTheme;
+      default:
+        return latteTheme;
+    }
+  }, [themeName]);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setCurrentTheme(savedTheme);
-  }, []);
-
-  const toggleTheme = (themeName) => {
-    setCurrentTheme(themeName);
-    localStorage.setItem('theme', themeName);
+  const switchTheme = (name) => {
+    setThemeName(name);
   };
 
   return (
-    <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
-      <ThemeProvider theme={themes[currentTheme]}>
+    <ThemeContext.Provider value={{ switchTheme }}>
+      <ThemeProvider theme={theme}>
         {children}
       </ThemeProvider>
     </ThemeContext.Provider>
   );
-};
+}

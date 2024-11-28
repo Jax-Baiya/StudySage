@@ -1,7 +1,7 @@
 // File: src/pages/Register.js
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Snackbar, IconButton, Tooltip, Box, Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { register } from '../utils/api';
 
@@ -120,6 +120,14 @@ function Register() {
               </Tooltip>
             </div>
           )}
+          </Box>
+          <Box mt={2} textAlign="center">
+            <Typography variant="body2">
+              Already have an account?{' '}
+              <Link to="/login" style={{ textDecoration: 'none', color: '#3f51b5' }}>
+                Sign In
+              </Link>
+            </Typography>
           </Box>
       </Paper>
       {/* Snackbar to show error messages */}

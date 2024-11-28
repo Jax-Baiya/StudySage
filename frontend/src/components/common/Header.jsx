@@ -1,4 +1,4 @@
-// File: src/components/common/Header.js
+// File: src/components/common/Header.jsx
 import React, { useState, useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Select } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -8,6 +8,7 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 import { logout } from '../../utils/api';
 import { ReactComponent as LogoLightSvg } from '../../assets/logos/StudySage_light_bg.svg';
 import { ReactComponent as LogoDarkSvg } from '../../assets/logos/StudySage_dark_bg.svg';
+import { useTheme } from '@mui/material/styles'; // Added
 
 const useStyles = makeStyles({
   headerTitle: {
@@ -21,8 +22,8 @@ const useStyles = makeStyles({
 function Header() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { currentTheme, toggleTheme } = useContext(ThemeContext);
-  const isDarkTheme = ['dark', 'mocha', 'macchiato', 'frappe'].includes(currentTheme);
+  const { switchTheme } = useContext(ThemeContext); // Removed themeName
+  const theme = useTheme(); // Added
   const token = localStorage.getItem('token');
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -44,6 +45,11 @@ function Header() {
     }
   };
 
+  const logoMap = {
+    light: <LogoDarkSvg style={{ width: '40px', height: '40px' }} />, // Use dark logo in light mode
+    dark: <LogoLightSvg style={{ width: '40px', height: '40px' }} />,   // Use light logo in dark mode
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -57,11 +63,7 @@ function Header() {
     >
       <Toolbar style={{ minHeight: '56px' }}> {/* Adjusted minHeight */}
         <Link to="/">
-          {isDarkTheme ? (
-            <LogoLightSvg style={{ width: '40px', height: '40px' }} /> // Reduced logo size
-          ) : (
-            <LogoDarkSvg style={{ width: '40px', height: '40px' }} /> // Reduced logo size
-          )}
+          {logoMap[theme.palette.mode] || <LogoDarkSvg style={{ width: '40px', height: '40px' }} />}
         </Link>
 
         <Typography variant="h6" className={classes.headerTitle}>
@@ -74,13 +76,10 @@ function Header() {
           Dashboard
         </Button>
         <Select
-          value={currentTheme}
-          onChange={(e) => toggleTheme(e.target.value)}
-          variant="outlined"
-          style={{ color: 'white', backgroundColor: 'inherit' }}
+          defaultValue="latte"
+          onChange={(e) => switchTheme(e.target.value)}
+          style={{ color: 'white' }}
         >
-          <MenuItem value="light">Light</MenuItem>
-          <MenuItem value="dark">Dark</MenuItem>
           <MenuItem value="latte">Latte</MenuItem>
           <MenuItem value="frappe">Frappe</MenuItem>
           <MenuItem value="macchiato">Macchiato</MenuItem>

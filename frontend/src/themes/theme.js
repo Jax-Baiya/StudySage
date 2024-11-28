@@ -38,14 +38,18 @@ export const latteTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#e7e9fb',
+      main: '#babbf1', // Lavender
     },
     secondary: {
-      main: '#f5c2e7',
+      main: '#babbf1', // Lavender
     },
     background: {
-      default: '#fafafa',
+      default: '#fafafa', // Rosewater
       paper: '#ffffff',
+    },
+    text: {
+      primary: '#1E1F29',
+      secondary: '#3E424E',
     },
   },
 });
@@ -54,14 +58,18 @@ export const frappeTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#96CDFB',
+      main: '#96CDFB', // Sky
     },
     secondary: {
-      main: '#E891BB',
+      main: '#E891BB', // Red
     },
     background: {
-      default: '#303446',
-      paper: '#292C3C',
+      default: '#303446', // Text Primary
+      paper: '#292C3C', // Surface0
+    },
+    text: {
+      primary: '#BAC2DE',
+      secondary: '#A6ADC8',
     },
   },
 });
@@ -70,14 +78,18 @@ export const macchiatoTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#8aadf4',
+      main: '#c6a0f6', // Mauve
     },
     secondary: {
-      main: '#f4b8e4',
+      main: '#b7bdf8', // Lavender
     },
     background: {
-      default: '#24273A',
-      paper: '#1E2030',
+      default: '#24273A', // Base
+      paper: '#1E2030', // Surface0
+    },
+    text: {
+      primary: '#BAC2DE',
+      secondary: '#A6ADC8',
     },
   },
 });
@@ -86,14 +98,18 @@ export const mochaTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#89b4fa',
+      main: '#f5e0dc', // Rosewater
     },
     secondary: {
-      main: '#f5c2e7',
+      main: '#f2cdcd', // Flamingo
     },
     background: {
-      default: '#1e1e2e',
-      paper: '#181825',
+      default: '#1e1e2e', // Base
+      paper: '#181825', // Surface0
+    },
+    text: {
+      primary: '#BAC2DE',
+      secondary: '#A6ADC8',
     },
   },
 });
